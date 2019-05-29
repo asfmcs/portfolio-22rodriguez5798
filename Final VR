@@ -1,0 +1,67 @@
+<!DOCTYPE html><html>
+    <head>
+        <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    </head>
+    <body>
+        <a-scene>
+        <a-camera> <a-cursor> </a-cursor> </a-camera>
+        <a-box position="8 1 -5" depth="2" height="4" width="2" 
+        color="tomato"></a-box>
+       
+       <a-box position="0 2 -5" depth="2" height="2" width="1" 
+        color="#77e8e8"></a-box>
+        
+        <a-box position="-6 4 -5" depth="2" height="2" width="1" 
+        color="#8383e9"></a-box>
+        
+        <a-box position="10 10 -5" depth="2" height="2" width="1" 
+        color="#95eaa5"></a-box>
+        
+         <a-box position="5 8 -5" depth="2" height="2" width="1" 
+        color="#db90ea"></a-box>
+        
+        <a-box position="10 20 -5" depth="2" height="2" width="1" 
+        color="#e70c3d"></a-box>
+        
+        <a-box position="-8 20 -5" depth="2" height="2" width="1" 
+        color="black"></a-box> 
+        
+        <a-box position="-8 10 -5" depth="2" height="2" width="1" 
+        color="#8710dc"></a-box>
+        
+        <a-cone color="#8710dc" radius-bottom="2" radius-top="0.5" 
+        heigt="1" position="0 10 -5"> </a-cone>
+        
+        <a-cone color="#8710dc" radius-bottom="1" radius-top="0" 
+        heigt="0.4" position="0 5 -5"> </a-cone>
+        
+        <a-cone color="#8710dc" radius-bottom="1" radius-top="0" 
+        heigt="0.4" position="-10 5 -5"> </a-cone>
+        
+        <a-cone color="#8710dc" radius-bottom="1" radius-top="0" 
+        heigt="0.4" position="0 5 -5"> </a-cone>
+        
+        <a-cone color="#8710dc" radius-bottom="1" radius-top="0" 
+        heigt="0.4" position="-10 5 -5"> </a-cone>
+        
+        <a-cone color="#8710dc" radius-bottom="1" radius-top="0" 
+        heigt="0.4" position="-5 14 -5"> </a-cone>
+        
+        <a-cone color="#8710dc" radius-bottom="1" radius-top="0" 
+        heigt="0.4" position="5 14 -5"> </a-cone>
+        
+        <a-sphere position="0 -6 -5" radius="2" color="red"> </a-sphere>
+        
+        <a-sphere position="0 7 -5" radius="1" color="blue"> </a-sphere>
+        
+        <a-sphere position="0 14 -5" radius="1.5" color="green"> </a-sphere>
+        
+        <a-cylinder color="crimson" height="3" radius="1.5"></a-cylinder>
+        
+        <a-cylinder position ="0 16 -5" color="crimson" height="1" radius="1.5"></a-cylinder>
+
+
+        
+        </a-scene>
+    </body>
+</html>

@@ -1,0 +1,451 @@
+<html>
+<head>
+<title>Maze</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script type="text/javascript" src="https://static.codehs.com/gulp/ec071a764d83f34910ba21fab0b0f0cc20293542/chs-js-lib/chs.js"></script>
+
+
+<style>
+canvas {
+    border: 1px solid black;
+    display: inline-block;
+    vertical-align: top;
+}
+
+pre {
+    border: 1px solid black;
+    display: inline-block;
+    width: 400px;
+    height: 500px;
+    background-color: #F5F5F5;
+}
+</style>
+
+</head>
+
+<body>
+<h1>Maze</h1>
+
+
+
+<canvas
+width="400"
+height="500"
+class="codehs-editor-canvas"></canvas>
+<pre id="console"></pre>
+
+<script>
+window.onload = function() {
+
+    function start() {
+    var height= getHeight(); 
+    var width = getWidth(); 
+    var centerX = getWidth()/2;
+    var centerY = getHeight()/2;
+    var pacmanyellow = "#FFD700";
+   
+   
+    //BACKGROUND:
+   background(0,0, Color.black); //comment
+   
+   //LINES:
+   lineTAB(0,10,400,10);// long Top line 
+   lineTAB(20,20,380,20);//short top line
+   lineTAB(20,20,20,120);//vertical line connected to short top line (left VLSTL) 
+   lineTAB(380,20,380,120);//vertical line connected to short top line (right VLSTR)
+   lineTAB(0,10,0,140);//vertical line connected to long top line (left VLLTL)
+   lineTAB(400,10,400,140);//vertical line connected to long top line (right VLLTR)
+   lineTAB(20,120,120,120);//Horizontal line connected to VLSTL (HL-VLSTL)
+   lineTAB(380,120,280,120);//Horizontal line connected to VLSTR (HL-VLSTR)
+   lineTAB(0,140,100,140); //Horizontal line connected to VLLTL  (HL-VLLTL)
+   lineTAB(400,140,300,140);//Horizontal line to VLLTR (HL-VLLTR)
+   lineTAB(120,120,120,210);//Vertical Line connected to HL-VLSTL (VL--HL-VLSTL)
+   lineTAB(100,140,100,190);//Vertical Line Connected to HL-VLLTL (VL --HL-VLLTL)
+   lineTAB(280,120,280,210);//Vertical line connected to HL-VLSTR (VL--HL-VLSTR)
+   lineTAB(300,140,300,190);//vertican line connected to HL-VLLTR (VL--HL-VLLTR)
+   lineTAB(300,190,400,190);//Horizontal line connected to VL--HL-VLLTR (HL--VL--HL-VLLTR)
+   lineTAB(280,210,400,210);//Horizontal line connected to VL--HL-VLSTR (HL--VL--HL-VLSTR)
+   lineTAB(120,210,0,210);//Horizontal line connected to VL--HL-VLSTR (HL--VL--HL-VLSTR)
+   lineTAB(100,190,0,190);//Horizontal line connected to VL --HL-VLLTL (HL--VL --HL-VLLTL)
+   lineTAB(100,260,0,260);//Horizontal line opposite to HL--VL --HL-VLLTL 
+   lineTAB(100,310,0,310);//Horizontal line parralell to ^^
+   lineTAB(100,260,100,310);//Vertical Line connecting both ^^ 
+   lineTAB(120,240,0,240);//Horizontal top line of second exit area (Left)
+   lineTAB(120,240,120,330);//Vertical line connecting both ^^ 
+   lineTAB(120,330,20,330);//Horiztonal bottom line of second exit area (left)
+   lineTAB(20,330,20,450);//Vertical line connected to short bottom line in second exit area 
+   lineTAB(0,310,0,460);//Vertical line connected to short bottom next to limit of rectangle (left)
+   lineTAB(20,450,380,450);//Bottom Short Line 
+   lineTAB(0,460,400,460);//Bottom long Line 
+   lineTAB(400,460,400,310);//Vartical Line connected to bottom long line (Right) 
+   lineTAB(380,330,380,450);//Vertical Line connected to bottom short line (right)
+   lineTAB(380,330,280,330);//Horizontal line connected to bottom short line (Right)
+   lineTAB(280,330,280,245);//Vertical line connected to Horizontal line long line (Right) 
+   lineTAB(280,245,400,245);//Horizontal line connected to vertical line long line (Right top)
+   lineTAB(400,310,300,310);//Horizontal line connected to vertical line short line (Right)
+   lineTAB(400,270,300,270);//Horizontal line connected to edge of rectangle (Right)
+   lineTAB(300,270,300,310);//Last Line!!!! 
+   lineTAB(160,160,160,280);//Vertical line left middle box
+   lineTAB(240,160,240,280);//Verical line right middle box 
+   lineTAB(160,280,240,280);//Horizontal line bottom middle box 
+   lineTAB(160,160,240,160);//Horizontal line top middle box 
+   
+   //GHOSTS:
+    drawGhost(centerX, centerY, Color.red);
+    drawGhost(170,centerY - 60, Color.green);
+    drawGhost(170,centerY, Color.orange);
+    drawGhost(200,centerY - 60, Color.yellow);
+    
+    drawCircle(centerX + 10, centerY, Color.red);
+    drawCircle(170 + 10 ,centerY- 60, Color.green);
+    drawCircle(170 + 10 , centerY, Color.orange);
+    drawCircle(210,centerY - 60, Color.yellow);
+    
+    drawbabyCircle(centerX, centerY, Color.red);
+    drawbabyCircle(170,centerY- 60, Color.green);
+    drawbabyCircle(170, centerY, Color.orange);
+    drawbabyCircle(200,centerY - 60, Color.yellow);
+    
+     drawbabyCircle2(centerX, centerY, Color.red);
+    drawbabyCircle2(170,centerY- 60, Color.green);
+    drawbabyCircle2(170, centerY, Color.orange);
+    drawbabyCircle2(200, centerY - 60, Color.yellow);
+    
+    drawbabyCircle3(centerX, centerY, Color.red);
+    drawbabyCircle3(170,centerY- 60, Color.green);
+    drawbabyCircle3(170, centerY, Color.orange);
+    drawbabyCircle3(200,centerY - 60, Color.yellow);
+    
+    drawCasperEyes(centerX, centerY, Color.red);
+    drawCasperEyes(170,centerY- 60, Color.green);
+    drawCasperEyes(170, centerY, Color.orange);
+    drawCasperEyes(200,centerY - 60, Color.yellow);
+    
+    drawCasperEyes2(centerX, centerY, Color.red);
+    drawCasperEyes2(170,centerY- 60, Color.green);
+    drawCasperEyes2(170, centerY, Color.orange);
+    drawCasperEyes2(200,centerY - 60, Color.yellow);
+    
+    drawCasperpupils(centerX, centerY, Color.red);
+    drawCasperpupils(170,centerY- 60, Color.green);
+    drawCasperpupils(170, centerY, Color.orange);
+    drawCasperpupils(200,centerY - 60, Color.yellow);
+    
+    drawCasperpupils2(centerX, centerY, Color.red);
+    drawCasperpupils2(170,centerY- 60, Color.green);
+    drawCasperpupils2(170, centerY, Color.orange);
+    drawCasperpupils2(200,centerY - 60, Color.yellow);
+    
+    //PACMAN: 
+drawPacman(centerX, centerY+ 150, pacmanyellow);
+pacmanEye(centerX+ 5,375, Color.black);
+pacmanMouth(26,10,90,0);
+
+   //OBSTECLES
+ ob1(45, 350, Color.blue);
+ ob1(305,350, Color.blue); 
+ ob1(45,30, Color.blue); 
+ ob1(310,30, Color.blue); 
+ 
+ ob2(centerX- 60, centerY+ 80, Color.blue); 
+ ob2(centerX- 60, centerY- 150, Color.blue);
+ ob2(centerX- 60, centerY- 210, Color.blue);
+ 
+ ob3(centerX- 55, centerY+ 85, Color.black);
+ ob3(centerX- 55, centerY- 145, Color.black);
+ ob3(centerX- 55, centerY- 205, Color.black);
+ 
+ ob4(50, 355, Color.black);
+ ob4(310,355, Color.black);
+ ob4(50,35, Color.black); 
+ ob4(315,35, Color.black);
+ 
+ //PELETS 
+ pacmanPelets(0,225, Color.White);
+ pacmanPelets(20,225, Color.White);
+ pacmanPelets(40,225, Color.White);
+ pacmanPelets(60,225, Color.White);
+ pacmanPelets(80,225, Color.White);
+ pacmanPelets(100,225, Color.White);
+ pacmanPelets(120,225, Color.White);
+ pacmanPelets(140,225, Color.White);
+ pacmanPelets(140,245, Color.White);
+ pacmanPelets(140,265, Color.White);
+ pacmanPelets(140,285, Color.White);
+pacmanPelets(140,205, Color.White);
+pacmanPelets(140,185, Color.White);
+pacmanPelets(140,165, Color.White);
+pacmanPelets(140,145, Color.White);
+pacmanPelets(131,125, Color.White);
+pacmanPelets(131,105, Color.White);
+pacmanPelets(111,105, Color.White);
+pacmanPelets(111,85, Color.White);
+pacmanPelets(111,65, Color.White);
+pacmanPelets(111,45, Color.White);
+pacmanPelets(111,30, Color.White);
+pacmanPelets(30,30, Color.White);
+pacmanPelets(30,50, Color.White);
+pacmanPelets(30,70, Color.White);
+pacmanPelets(30,90, Color.White);
+pacmanPelets(30,110, Color.White);
+pacmanPelets(131,85, Color.White);
+pacmanPelets(131,65, Color.White);
+pacmanPelets(131,45, Color.White);
+pacmanPelets(131,30, Color.White);
+pacmanPelets(131,45, Color.White);
+pacmanPelets(160,145, Color.White);
+pacmanPelets(180,145, Color.White);
+pacmanPelets(200,145, Color.White);
+pacmanPelets(220,145, Color.White);
+pacmanPelets(240,145, Color.White);
+pacmanPelets(260,145, Color.White);
+pacmanPelets(260,165, Color.White);
+pacmanPelets(260,185, Color.White);
+pacmanPelets(260,205, Color.White);
+pacmanPelets(260,225, Color.White);
+pacmanPelets(280,225, Color.White);
+pacmanPelets(300,225, Color.White);
+pacmanPelets(320,225, Color.White);
+pacmanPelets(340,225, Color.White);
+pacmanPelets(360,225, Color.White);
+pacmanPelets(380,225, Color.White);
+pacmanPelets(400,225, Color.White);
+pacmanPelets(260,245, Color.White);
+pacmanPelets(260,265, Color.White);
+pacmanPelets(260,285, Color.White);
+pacmanPelets(260,305, Color.White);
+pacmanPelets(240,290, Color.White);
+pacmanPelets(220,290, Color.White);
+pacmanPelets(200,290, Color.White);
+pacmanPelets(180,290, Color.White);
+pacmanPelets(160,290, Color.White);
+pacmanPelets(240,305, Color.White);
+pacmanPelets(220,305, Color.White);
+pacmanPelets(200,305, Color.White);
+pacmanPelets(180,305, Color.White);
+pacmanPelets(160,305, Color.White);
+pacmanPelets(140,305, Color.White);
+pacmanPelets(270,325, Color.White);
+pacmanPelets(270,345, Color.White);
+pacmanPelets(270,365, Color.White);
+pacmanPelets(270,385, Color.White);
+pacmanPelets(270,405, Color.White);
+pacmanPelets(270,425, Color.White);
+pacmanPelets(270,440, Color.White);
+pacmanPelets(290,440, Color.White);
+pacmanPelets(310,440, Color.White);
+pacmanPelets(330,440, Color.White);
+pacmanPelets(350,440, Color.White);
+pacmanPelets(370,440, Color.White);
+pacmanPelets(370,420, Color.White);//jajajaj
+pacmanPelets(370,400, Color.White);
+pacmanPelets(370,380, Color.White);
+pacmanPelets(370,360, Color.White);
+pacmanPelets(370,340, Color.White);
+pacmanPelets(350,340, Color.White);
+pacmanPelets(330,340, Color.White);
+pacmanPelets(310,340, Color.White);
+pacmanPelets(290,340, Color.White);
+pacmanPelets(290,360, Color.White);
+pacmanPelets(290,380, Color.White);
+pacmanPelets(290,400, Color.White);
+pacmanPelets(290,420, Color.White);
+pacmanPelets(250,425, Color.White);
+pacmanPelets(230,425, Color.White);
+pacmanPelets(210,425, Color.White);
+pacmanPelets(190,425, Color.White);
+pacmanPelets(170,425, Color.White);
+pacmanPelets(150,425, Color.White);
+pacmanPelets(130,425, Color.White);
+pacmanPelets(110,425, Color.White);
+pacmanPelets(110,405, Color.White);
+pacmanPelets(110,425, Color.White);
+pacmanPelets(110,385, Color.White);
+pacmanPelets(110,365, Color.White);
+pacmanPelets(110,345, Color.White);
+pacmanPelets(130,345, Color.White);
+pacmanPelets(130,325, Color.White);
+pacmanPelets(130,365, Color.White);
+pacmanPelets(130,385, Color.White);
+pacmanPelets(130,405, Color.White);
+pacmanPelets(150,405, Color.White);
+pacmanPelets(150,385, Color.White);
+pacmanPelets(150,370, Color.White);
+pacmanPelets(170,370, Color.White);
+pacmanPelets(170,405, Color.White);
+pacmanPelets(250,405, Color.White);
+pacmanPelets(250,385, Color.White);
+pacmanPelets(31,347, Color.White);
+pacmanPelets(51,344, Color.White);
+pacmanPelets(71,344, Color.White);
+pacmanPelets(91,344, Color.White);
+pacmanPelets(31,367, Color.White);
+pacmanPelets(31,387, Color.White);
+pacmanPelets(31,407, Color.White);
+pacmanPelets(31,427, Color.White);
+pacmanPelets(31,442, Color.White);
+pacmanPelets(51,442, Color.White);
+pacmanPelets(71,442, Color.White);
+pacmanPelets(91,442, Color.White);
+pacmanPelets(111,442, Color.White);
+pacmanPelets(131,442, Color.White);
+pacmanPelets(151,442, Color.White);
+pacmanPelets(171,442, Color.White);
+pacmanPelets(191,442, Color.White);
+pacmanPelets(211,442, Color.White);
+pacmanPelets(231,442, Color.White);
+pacmanPelets(251,442, Color.White);
+pacmanPelets(250,372, Color.White);
+pacmanPelets(300,110, Color.White);
+pacmanPelets(300,90, Color.White);
+pacmanPelets(300,70, Color.White);
+pacmanPelets(300,50, Color.White);
+pacmanPelets(300,30, Color.White);
+pacmanPelets(370,110, Color.White);
+pacmanPelets(370,90, Color.White);
+pacmanPelets(370,70, Color.White);
+pacmanPelets(370,50, Color.White);
+pacmanPelets(370,30, Color.White);
+pacmanPelets(280,110, Color.White);
+pacmanPelets(280,90, Color.White);
+pacmanPelets(280,70, Color.White);//Line for middle square area
+pacmanPelets(280,50, Color.White);
+pacmanPelets(280,30, Color.White);
+pacmanPelets(270,81, Color.White);
+pacmanPelets(250,81, Color.White);
+pacmanPelets(230,81, Color.White);
+pacmanPelets(210,81, Color.White);
+pacmanPelets(190,81, Color.White);
+pacmanPelets(170,81, Color.White);
+pacmanPelets(150,81, Color.White);
+
+}
+
+function pacmanPelets(x,y, color){ 
+    var Pac = new Circle(3); 
+    Pac.setColor(Color.white); 
+    Pac.setPosition(x,y); 
+    add(Pac);}
+    
+function background(x,y,color){
+var back = new Rectangle (3000,3000); 
+    back.setColor(color); 
+     back.setPosition(x, y);
+     add(back);}
+    
+function lineTAB(x1,y1,x2,y2,color){
+var line = new Line(x1,y1, x2,y2); 
+line.setColor(Color.blue);
+line.setLineWidth(2);
+    add(line);}
+    
+function ob4(x, y, color) {
+  var passing= new Rectangle (40,70); 
+     passing.setColor(color); 
+     passing.setPosition(x, y);
+     add(passing);} 
+    
+function ob3(x, y, color) {
+  var passing= new Rectangle (110,30); 
+     passing.setColor(color); 
+     passing.setPosition(x, y);
+     add(passing);}
+
+function ob2(x, y, color) {
+  var passing= new Rectangle (120,40); 
+     passing.setColor(color); 
+     passing.setPosition(x, y);
+     add(passing);} 
+
+    
+function ob1(x, y, color) {
+  var passing= new Rectangle (50,80); 
+     passing.setColor(color); 
+     passing.setPosition(x, y);
+     add(passing);} 
+
+
+function drawGhost(x, y, color ){
+     var ghost = new Rectangle (20,30); 
+     ghost.setColor(color); 
+     ghost.setPosition(x, y);
+     add(ghost);} 
+     
+function drawCircle(x,y, color){
+    var circle = new Circle(10); 
+    circle.setColor(color); 
+    circle.setPosition(x,y); 
+    add(circle);}
+    
+function drawbabyCircle(x,y, color) { 
+        var baby = new Circle(3); 
+    baby.setColor(color); 
+    baby.setPosition(x + 3, y + 30 ); 
+    add(baby);}
+
+function drawbabyCircle2(x,y, color) { 
+        var baby = new Circle(3); 
+    baby.setColor(color); 
+    baby.setPosition(x + 10, y + 30); 
+    add(baby);}
+
+function drawbabyCircle3(x,y, color) { 
+        var baby = new Circle(3); 
+    baby.setColor(color); 
+    baby.setPosition(x + 17, y + 30 ); 
+    add(baby);}
+    
+function drawCasperEyes(x,y,color){ 
+        var eyes = new Circle(5); 
+        eyes.setColor(Color.white); 
+        eyes.setPosition(x + 6, y + 7); 
+        add(eyes);}
+        
+function drawCasperEyes2(x,y,color){ 
+        var eyes = new Circle(5); 
+        eyes.setColor(Color.white); 
+        eyes.setPosition(x + 14, y + 7); 
+        add(eyes);}
+        
+ function drawCasperpupils(x,y,color){ 
+        var eyes = new Circle(2); 
+        eyes.setColor(Color.blue); 
+        eyes.setPosition(x + 6, y + 7); 
+        add(eyes);}
+        
+function drawCasperpupils2(x,y,color){ 
+        var eyes = new Circle(2); 
+        eyes.setColor(Color.blue); 
+        eyes.setPosition(x + 14, y + 7); 
+        add(eyes);}
+        
+function drawPacman(x,y, color){
+    var Pac = new Circle(25); 
+    Pac.setColor(color); 
+    Pac.setPosition(x,y); 
+    add(Pac);}
+    
+function pacmanEye(x,y, color){
+    var Pac = new Circle(3); 
+    Pac.setColor(color); 
+    Pac.setPosition(x,y); 
+    add(Pac);}
+    
+function pacmanMouth(radius, start, end, unit) {
+    var myArc = new Arc(radius,start,end,unit); 
+   myArc.setPosition(200, 390); 
+    myArc.setColor(Color.black); 
+    myArc.setRotation(50);
+    add(myArc);}
+
+
+    if (typeof start === 'function') {
+        start();
+    }
+};
+</script>
+
+</body>
+</html> 
